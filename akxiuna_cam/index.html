@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+"akxiuna cam" is released under the MIT license
+
+Copyright © 2013 Alvin Khoo <akxiuna>.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of these akxiuna chat
+and associated documentation files (the “Software”), to deal in the Software without restriction, 
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Some images used in this project are also distributed under the MIT license and copyright by Alvin Khoo <akxiuna>.
+
+/*LIU LIU*/
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+* Neither the name of the authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+/*LIU LIU*/
+
+DISCLAIMER:
+Part of the code and files used in this project has been adopted from the following sources:
+
+Base script for Face detection : https://github.com/neave/face-detection  	--no license
+CSS filters : 	http://www.andismith.com/blog/2012/07/extending-getusermedia/ 	--no license
+				http://www.storminthecastle.com/2013/04/06/how-you-can-do-cool-image-effects-using-html5-canvas/	--no license
+Images: http://www.vectorarts.net/objects/free-glasses-vector-graphics-3/	--Creative Commons Attribution 3.0 Share Alike 3 
+
+Face detection scripts: https://github.com/liuliu/  --see license above
+
+jQuery : http://jquery.com/ --MIT license
+
+jsascii: http://blog.nihilogic.dk/2008/03/jsascii.html - MIT License
+-->
+	<head>
+		<meta charset="utf-8">
+		<title>Welcome to akxiuna cam</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+	<div id="overlay" class="web_dialog_overlay"></div>
+	<div id="dialog" class="web_dialog">
+		<div id="dialogcontents"> 		
+		</div>
+	</div>
+	<div id = "header" class = "main">	
+		<img src= "images/logo.png" onclick="window.location = 'http://www.akxiuna.com/'"/>
+		
+	</div>
+	<div id = "container" class = "main">
+		<video id="video"></video>		
+		<div id="holderwrapper">
+		<div id= "left" class= "content holders">
+			<canvas id="output" class ="stream"></canvas>
+		</div>
+		<div id= "middle" class = "content holders">
+			<button id = "snapshot" class="middlebuttons">Snap</button><br/>
+			<button id="asciime" class="middlebuttons">Asciify</button><br/>				
+		</div>
+		<div id="right" class= "content holders">
+			<img id="image" style ="display:none;" class ="stream" src="" asciify="true" asciiresolution="low" asciiscale="1"><br/>
+		</div>
+		</div>
+	
+		<div id="bottom" class= "holders">
+		<div class= "filters">
+			<button id ="invert" class="filterbuttons">Invert</button>
+			<button id ="red" class="filterbuttons">Red</button>
+			<button id ="blue" class="filterbuttons">Blue</button>
+			<button id ="green" class="filterbuttons">Green</button>
+			<button id ="grayscale" class="filterbuttons">Grayscale</button>
+			<button id ="sepia" class="filterbuttons">Sepia</button>
+			<button id ="bright" class="filterbuttons">Bright</button>
+			<button id ="dark" class="filterbuttons">Dark</button>
+			<button id ="noise" class="filterbuttons">Noise</button>
+			<button id ="threshold" class="filterbuttons">Threshold</button>
+		</div>
+		<div class= "objects">
+			<div id="glasseswrapper" class="wrapper">
+			<img src = "images/glasses1.png" id ="glasses1" class= "glasses"/>
+			<img src = "images/glasses2.png" id ="glasses2" class= "glasses"/>
+			<img src = "images/glasses3.png" id ="glasses3" class= "glasses"/>
+			<img src = "images/cancel.jpg" id ="noglasses" class= "cancel"/>
+			</div>
+			<div id="headwearwrapper" class="wrapper">
+			<img src = "images/headwear1.png" id ="headwear1" class= "headwear"/>
+			<img src = "images/headwear2.png" id ="headwear2" class= "headwear"/>
+			<img src = "images/headwear3.png" id ="headwear3" class= "headwear"/>
+			<img src = "images/cancel.jpg" id ="noheadwear" class= "cancel"/>
+			</div>
+			<div id="mouthpiecewrapper" class="wrapper">
+			<img src = "images/mouthpiece1.png" id ="mouthpiece1" class= "mouthpiece"/>
+			<img src = "images/mouthpiece2.png" id ="mouthpiece2" class= "mouthpiece"/>
+			<img src = "images/mouthpiece3.png" id ="mouthpiece3" class= "mouthpiece"/>
+			<img src = "images/cancel.jpg" id ="nomouthpiece" class= "cancel"/>
+			</div>
+		</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="scripts/ccv.js"></script>
+	<script type="text/javascript" src="scripts/face.js"></script>
+	<script type="text/javascript" src="scripts/jsascii.js"></script>
+	<script type="text/javascript" src="scripts/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="scripts/main.js"></script>
+	<script type="text/javascript">
+   $(document).ready(function ()
+   {
+      $("#asciime").click(function (e)
+      {
+		 jsAscii();
+		 ShowDialog();
+         e.preventDefault();
+		 
+      });
+
+      $("#close").click(function (e)
+      {
+         HideDialog();
+         e.preventDefault();
+      });
+
+   });
+
+   function ShowDialog()
+   {
+      $("#overlay").show();
+      $("#dialog").fadeIn(300);
+         $("#overlay").click(function (e)
+         {
+            HideDialog();
+         });
+   }
+
+   function HideDialog()
+   {
+      $("#overlay").hide();
+      $("#dialog").fadeOut(300);
+	  
+   } 
+        
+	</script>
+	<div style="text-align:center;min-width:1000px; margin-left:auto;margin-right:auto;font-size:12px; font-family:Myriad Pro;"> *** supports Chrome 27+***</div>
+	</body>
+</html>

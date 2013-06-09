@@ -1,0 +1,53 @@
+<!--
+"akxiuna chat" is released under the MIT license
+
+Copyright © 2013 Alvin Khoo <akxiuna>.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of these akxiuna chat
+and associated documentation files (the “Software”), to deal in the Software without restriction, 
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+All images used in this project are also distributed under the MIT license and copyright by Alvin Khoo <akxiuna>.
+
+DISCLAIMER:
+Part of the code used in this project has been adopted from the "WebSockets" project by Muaz Khan.
+https://github.com/muaz-khan/WebRTC-Experiment/tree/master/websocket
+
+jQuery : http://jquery.com/ --MIT license
+
+-->
+<html>
+<head>
+	<title>Welcome to akxiuna chat</title>
+	<script src="javascripts/index.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div id="header">
+		<img src= "images/logo.png" onclick="window.location = 'http://www.akxiuna.com/'"/>
+	</div>
+	<div id="wrapper">
+		<div>
+			<img src= "images/chat.png"/><br/>
+			<button onclick="redirect()" class="grab">
+			Grab
+			</button>
+		</div>
+		<div id="unique-token">
+		</div>
+	</div><br/>
+	<div style="text-align:center;min-width:1000px; margin-left:auto;margin-right:auto;font-size:12px; font-family:Myriad Pro;"> *** supports Chrome 27+***</div>
+</body>
+
+</html>
